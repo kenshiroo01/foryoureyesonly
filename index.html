@@ -1,0 +1,682 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Your Eyes Only 💌</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Georgia', serif;
+    background: #160f19;
+    color: white;
+    overflow: hidden;
+}
+
+.page {
+    width: 100%;
+    height: 100vh;
+    height: 100dvh;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    padding: 24px;
+    position: relative;
+    overflow: hidden;
+}
+
+.page.active {
+    display: flex;
+    animation: fadeIn 1s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+h1 {
+    font-size: clamp(27px, 6vw, 44px);
+    margin-bottom: 18px;
+}
+
+p {
+    line-height: 1.8;
+}
+
+button {
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    transition: transform .3s, background .3s;
+}
+
+button:hover {
+    transform: scale(1.06);
+}
+
+.next-btn {
+    margin-top: 28px;
+    background: #ff83ac;
+    color: #381522;
+    padding: 14px 28px;
+    border-radius: 30px;
+    font-size: 15px;
+    box-shadow: 0 5px 25px #ff83ac55;
+}
+
+/* PAGE 1 */
+
+#page1 {
+    background: radial-gradient(circle, #59314e, #160f19 75%);
+}
+
+.gift {
+    font-size: 100px;
+    animation: float 2s ease-in-out infinite;
+}
+
+@keyframes float {
+    50% { transform: translateY(-14px); }
+}
+
+.subtitle {
+    color: #f6c3d8;
+    margin-top: 5px;
+}
+
+/* PAGE 2 */
+
+#page2 {
+    background:
+        linear-gradient(180deg, #d98cc4aa, #ffb16aaa, #392a42cc),
+        linear-gradient(120deg, #f5a5b9, #f7c879, #a66da9);
+}
+
+.sun {
+    position: absolute;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    background: #ffdd94;
+    filter: blur(2px);
+    top: 22%;
+    box-shadow: 0 0 80px #ffcf88;
+}
+
+#page2 .content {
+    z-index: 2;
+    text-shadow: 0 2px 10px #57364d55;
+}
+
+.cloud {
+    position: absolute;
+    font-size: 55px;
+    opacity: .5;
+    animation: drift 12s linear infinite alternate;
+}
+
+@keyframes drift {
+    from { transform: translateX(-50px); }
+    to { transform: translateX(50px); }
+}
+
+/* PAGE 3 */
+
+#page3 {
+    background: linear-gradient(145deg, #30172e, #8b456c, #f3a7b8);
+}
+
+.heart {
+    font-size: 100px;
+    animation: heartbeat 1.3s infinite;
+}
+
+@keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.13); }
+}
+
+/* PAGE 4 */
+
+#page4 {
+    background:
+        radial-gradient(ellipse at top, #76415e, transparent 65%),
+        linear-gradient(145deg, #180f20, #32192e);
+}
+
+#page4 h2 {
+    font-size: 12px;
+    letter-spacing: 4px;
+    color: #ffb9d1;
+    margin-bottom: 12px;
+}
+
+#page4 .hint {
+    font-size: 14px;
+    color: #f4d6e4;
+    margin-bottom: 40px;
+}
+
+.envelope-wrap {
+    position: relative;
+    width: min(290px, 78vw);
+    height: 190px;
+    perspective: 1000px;
+    margin-top: 15px;
+    cursor: pointer;
+}
+
+.envelope {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    bottom: 0;
+    background: #ff8fb6;
+    border-radius: 5px;
+    box-shadow: 0 15px 40px #0005;
+}
+
+.envelope::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: #f779a5;
+    clip-path: polygon(0 0, 50% 62%, 100% 0);
+    z-index: 3;
+    transition: transform .7s;
+    transform-origin: top;
+}
+
+.envelope::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: #ffa8c7;
+    clip-path: polygon(0 100%, 0 0, 50% 55%);
+    z-index: 2;
+}
+
+.flap {
+    position: absolute;
+    inset: 0;
+    background: #ffb5ce;
+    clip-path: polygon(0 0, 100% 0, 50% 58%);
+    transform-origin: top;
+    transition: transform .8s ease;
+    z-index: 5;
+}
+
+.seal {
+    position: absolute;
+    z-index: 6;
+    left: 50%;
+    top: 45%;
+    transform: translate(-50%, -50%);
+    font-size: 42px;
+    transition: opacity .4s;
+}
+
+.envelope.open .flap {
+    transform: rotateX(180deg);
+    z-index: 1;
+}
+
+.envelope.open .seal {
+    opacity: 0;
+}
+
+.letter {
+    position: absolute;
+    z-index: 4;
+    bottom: 8px;
+    left: 5%;
+    width: 90%;
+    height: 90%;
+    overflow: hidden;
+    background: #fff5f7;
+    color: #61374b;
+    border-radius: 5px;
+    padding: 18px 14px;
+    text-align: left;
+    opacity: 0;
+    transform: translateY(0);
+    transition: transform 1s ease, opacity .5s ease;
+}
+
+.envelope.open .letter {
+    opacity: 1;
+    transform: translateY(-125px);
+    height: 260px;
+    overflow-y: auto;
+}
+
+.letter h3 {
+    text-align: center;
+    color: #d85c8a;
+    font-size: 20px;
+    margin-bottom: 14px;
+}
+
+.letter p {
+    font-size: 14px;
+    line-height: 1.8;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+.signature {
+    margin-top: 16px;
+    text-align: right;
+    color: #d85c8a;
+    font-style: italic;
+}
+
+.opened-note {
+    opacity: 0;
+    margin-top: 90px;
+    font-size: 12px;
+    color: #ffc3d8;
+    transition: opacity .5s;
+}
+
+#page4.revealed .opened-note {
+    opacity: 1;
+}
+
+.music-btn {
+    position: fixed;
+    right: 15px;
+    top: 15px;
+    z-index: 20;
+    background: #ffffff20;
+    color: white;
+    border: 1px solid #ffffff40;
+    padding: 10px 14px;
+    border-radius: 25px;
+    font-size: 12px;
+}
+
+@media (max-height: 650px) {
+    .envelope-wrap {
+        width: min(250px, 70vw);
+        height: 150px;
+    }
+
+    #page4 .hint {
+        margin-bottom: 15px;
+    }
+
+    .envelope.open .letter {
+        transform: translateY(-100px);
+        height: 220px;
+    }
+
+    .opened-note {
+        margin-top: 75px;
+    }
+}
+
+
+/* HEART-SHAPED PASSWORD LOCK */
+.heart-lock {
+    position: relative;
+    width: 200px;
+    height: 190px;
+    margin: 20px auto;
+}
+
+.lock-shackle {
+    position: absolute;
+    top: 0;
+    left: 65px;
+    width: 70px;
+    height: 78px;
+    border: 9px solid #ffe5f0;
+    border-radius: 40px 40px 0 0;
+    border-bottom: none;
+    z-index: 1;
+}
+
+.lock-heart {
+    position: absolute;
+    top: 48px;
+    left: 0;
+    width: 200px;
+    height: 170px;
+    background: #f77eaa;
+    filter: drop-shadow(0 8px 12px #0004);
+    clip-path: polygon(
+        50% 100%,
+        5% 55%,
+        0 38%,
+        5% 18%,
+        20% 5%,
+        36% 8%,
+        50% 25%,
+        64% 8%,
+        80% 5%,
+        95% 18%,
+        100% 38%,
+        95% 55%
+    );
+    z-index: 2;
+}
+
+.pin-display {
+    position: absolute;
+    top: 36px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 5px;
+}
+
+.pin-digit {
+    width: 28px;
+    height: 43px;
+    border: none;
+    border-radius: 6px;
+    background: #fff5f8;
+    color: #39202e;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    outline: none;
+}
+
+.enter-btn {
+    position: absolute;
+    top: 90px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #321624;
+    color: white;
+    padding: 7px 19px;
+    border-radius: 20px;
+    font-size: 10px;
+    letter-spacing: 2px;
+}
+
+.enter-btn:hover {
+    transform: translateX(-50%) scale(1.05);
+}
+
+#lockMessage {
+    font-size: 12px;
+    color: #ffd0e2;
+    margin: 8px 0 20px;
+}
+
+.letter-area {
+    display: none;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+}
+
+.letter-area.unlocked {
+    display: flex;
+    animation: fadeIn 1s ease;
+}
+
+.letter-area .envelope-wrap {
+    margin-top: 15px;
+}
+
+.heart-lock.unlocked {
+    display: none;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- MUSIC: Put song.mp3 beside this HTML file -->
+<audio id="bgMusic" src="Song1.mp3" loop preload="auto"></audio>
+
+<button class="music-btn" id="musicButton"
+        onclick="toggleMusic()">♫ Music: OFF</button>
+
+<!-- PAGE 1 -->
+<section class="page active" id="page1">
+    <div class="gift">🎁</div>
+    <h1>A Little Gift For You</h1>
+    <p class="subtitle">Made with love, just for you. 💗</p>
+    <button class="next-btn" onclick="startExperience()">
+        Open Your Gift ♡
+    </button>
+</section>
+
+<!-- PAGE 2 -->
+<section class="page" id="page2">
+    <div class="sun"></div>
+    <div class="cloud" style="top:12%;left:10%">☁️</div>
+    <div class="cloud" style="top:22%;right:8%">☁️</div>
+
+    <div class="content">
+        <h1>Even Miles Apart...</h1>
+        <p>
+            No matter how far we are,<br>
+            you're always close to my heart. 💕
+        </p>
+        <button class="next-btn" onclick="goToPage(3)">
+            Continue ♡
+        </button>
+    </div>
+</section>
+
+<!-- PAGE 3 -->
+<section class="page" id="page3">
+    <div class="heart">💌</div>
+    <h1>A Letter For You</h1>
+    <p>
+        There is something I want you to read.<br>
+        I hope these words make you smile.
+    </p>
+    <button class="next-btn" onclick="goToPage(4)">
+        For Your Eyes Only →
+    </button>
+</section>
+
+<!-- PAGE 4 -->
+
+<!-- PAGE 4 -->
+<section class="page" id="page4">
+    <h2>♡ LOCKED LOVE LETTER ♡</h2>
+    <h1 style="font-size:30px">For Your Eyes Only</h1>
+    <p class="hint">Enter the month and date when you answered me.💗</p>
+
+    <div class="heart-lock" id="heartLock">
+        <div class="lock-shackle"></div>
+
+        <div class="lock-heart">
+            <div class="pin-display">
+                <input class="pin-digit" type="password"
+                       inputmode="numeric" maxlength="1" aria-label="Digit 1">
+                <input class="pin-digit" type="password"
+                       inputmode="numeric" maxlength="1" aria-label="Digit 2">
+                <input class="pin-digit" type="password"
+                       inputmode="numeric" maxlength="1" aria-label="Digit 3">
+                <input class="pin-digit" type="password"
+                       inputmode="numeric" maxlength="1" aria-label="Digit 4">
+            </div>
+
+            <button class="enter-btn" onclick="unlockLetter(event)">
+                ENTER
+            </button>
+        </div>
+    </div>
+
+    <p id="lockMessage">🔒 A little secret, just for us.</p>
+
+    <div id="letterArea" class="letter-area">
+        <div class="envelope-wrap" onclick="openLetter()">
+            <div class="envelope" id="envelope">
+                <div class="letter">
+                    <h3>My Dearest Love ♡</h3>
+                    <p id="typedLetter"></p>
+                    <div class="signature" id="signature"></div>
+                </div>
+                <div class="flap"></div>
+                <div class="seal">💗</div>
+            </div>
+        </div>
+        <p class="opened-note">Every word comes straight from my heart. 💕</p>
+    </div>
+</section>
+
+
+<script>
+const bgMusic = document.getElementById("bgMusic");
+const musicButton = document.getElementById("musicButton");
+
+let letterOpened = false;
+let typingTimer;
+
+const letterText = `Hi babyyy kooo
+
+Nothing special baby i just want to make you smile again cuz of me hihi. Sana kahit sa simpleng message na ’to, napangiti kita kahit konti HAHAHA. Hindi man kita mayakap ngayon, sana maramdaman mo sa mga simpleng bagay na mahal na mahal kita. 
+
+Baby wag mo kalimutang andaming nagmamahal sayo okay? Andaming naming nagmamahal sayo kaya kapag napaghihinaan ka ng loob magsabi kalang sakin baby. Mahal na mahal kita, baby ko. Sana sa bawat araw na lumilipas, mas maramdaman mo kung gaano ka kahalaga sa akin. Hindi man perpekto ang lahat, pipiliin pa rin kitang mahalin, intindihin, suportahan, at alagaan sa abot ng makakaya ko. Ikaw ang isa sa pinakamagandang nangyari buhay ko, at sobrang thankful ako na ikaw ang meron ako.
+
+Minsan nakakalungkot lang talaga kasi gusto kitang makita, makasama, at mayakap lalo na kapag namimiss na namimiss kita. Yung tipong gusto ko lang na nandiyan ka sa tabi ko, kahit wala tayong gawin, basta magkasama lang tayo.
+ 
+Ayokong kapag may tampuhan tayo, pareho tayong manahimik at maghintay kung sino ang unang lalapit. Gusto kong matuto tayong makinig sa isa't isa, umintindi, at magsabi ng nararamdaman natin nang maayos. Hindi naman natin kailangang laging magkasundo, ang mahalaga, hindi natin nakakalimutang mahal natin ang isa't isa kahit may problema tayo. 💗`;
+
+const signatureText = "Forever yours, with love. ♡";
+
+function goToPage(number) {
+    document.querySelectorAll(".page").forEach(page => {
+        page.classList.remove("active");
+    });
+
+    document.getElementById("page" + number).classList.add("active");
+}
+
+function startExperience() {
+    // Browsers generally allow audio after a user click.
+    bgMusic.play().then(() => {
+        musicButton.textContent = "♫ Music: ON";
+    }).catch(() => {
+        musicButton.textContent = "♫ Tap for Music";
+    });
+
+    goToPage(2);
+}
+
+function toggleMusic() {
+    if (bgMusic.paused) {
+        bgMusic.play().then(() => {
+            musicButton.textContent = "♫ Music: ON";
+        }).catch(() => {
+            musicButton.textContent = "♫ Music: OFF";
+        });
+    } else {
+        bgMusic.pause();
+        musicButton.textContent = "♫ Music: OFF";
+    }
+}
+
+function openLetter() {
+    if (letterOpened) return;
+
+    letterOpened = true;
+
+    document.getElementById("envelope").classList.add("open");
+    document.getElementById("page4").classList.add("revealed");
+
+    // Wait for the letter to slide out before typing.
+    setTimeout(typeLetter, 850);
+}
+
+function typeLetter() {
+    const output = document.getElementById("typedLetter");
+    const signature = document.getElementById("signature");
+    let index = 0;
+
+    output.textContent = "";
+
+    function typeNextCharacter() {
+        if (index < letterText.length) {
+            output.textContent += letterText.charAt(index);
+            index++;
+
+            // Scroll as the letter grows.
+            const letter = document.querySelector(".letter");
+            letter.scrollTop = letter.scrollHeight;
+
+            typingTimer = setTimeout(typeNextCharacter, 40);
+        } else {
+            signature.textContent = signatureText;
+        }
+    }
+
+    typeNextCharacter();
+}
+
+
+const SECRET_PIN = "0531";
+
+const pinInputs = document.querySelectorAll(".pin-digit");
+
+pinInputs.forEach((input, index) => {
+    input.addEventListener("input", () => {
+        input.value = input.value.replace(/\D/g, "").slice(-1);
+
+        if (input.value && index < pinInputs.length - 1) {
+            pinInputs[index + 1].focus();
+        }
+    });
+
+    input.addEventListener("keydown", event => {
+        if (
+            event.key === "Backspace" &&
+            !input.value &&
+            index > 0
+        ) {
+            pinInputs[index - 1].focus();
+        }
+
+        if (event.key === "Enter") {
+            unlockLetter(event);
+        }
+    });
+});
+
+function unlockLetter(event) {
+    if (event) event.stopPropagation();
+
+    const enteredPin = Array.from(pinInputs)
+        .map(input => input.value)
+        .join("");
+
+    const message = document.getElementById("lockMessage");
+
+    if (enteredPin !== SECRET_PIN) {
+        message.textContent = "💔 Incorrect code. Try again!";
+        pinInputs.forEach(input => input.value = "");
+        pinInputs[0].focus();
+        return;
+    }
+
+    document.getElementById("heartLock").classList.add("unlocked");
+    document.getElementById("letterArea").classList.add("unlocked");
+
+    message.textContent = "💖 Unlocked! Your letter is waiting.";
+}
+
+</script>
+
+</body>
+</html>
